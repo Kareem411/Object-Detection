@@ -1,8 +1,9 @@
 from ultralytics import YOLO
 import cv2
 import cvzone
+import numpy as np
 
-model = YOLO('../Yolo-weights/yolov8n.pt')
+model = YOLO('../Yolo-weights/yolov8l.pt')
 user_input = input("Camera or Video feed? (c/v)\n")
 if user_input not in ["c", "v"]:
     print("Invalid input, please enter 'c' or 'v'")
@@ -27,6 +28,15 @@ if mask_answer:
     mask_url = str(input("Mask URL: \n"))
     mask = cv2.imread(mask_url)
 
+# Define colors for each class label
+color_dict = {
+    'bus': (255, 0, 0),        # blue
+    'car': (255, 165, 0),      # light orange
+    'motorcycle': (255, 255, 255),  # white
+    'truck': (0, 255, 0),      # green
+    'person': (255, 69, 0)     # hard orange
+}
+
 while True:
     _, feed = cap.read()
     if mask_answer:
@@ -43,13 +53,23 @@ while True:
 
             if answer:
                 if model.names[int(box.cls[0])] in check:
-                    cvzone.cornerRect(feed, (xmin, ymin, w, h), colorC=(153, 52, 43), colorR=(95, 69, 235), t=3, l=15)
+                    label = model.names[int(box.cls[0])]
+                    if label in color_dict:
+                        color = color_dict[label]
+                    else:
+                        color = tuple(np.random.randint(0, 255, 3).tolist())
+                    cvzone.cornerRect(feed, (xmin, ymin, w, h), colorC=color, colorR=(95, 69, 235), t=3, l=15)
                     conf = round(float(box.conf[0]), 2)
                     cvzone.putTextRect(feed, f"{conf}", pos=(max(0, xmin), max(30, ymin - 10)), scale=0.8, thickness=1, offset=3)
-                    cvzone.putTextRect(feed, f"{model.names[int(box.cls[0])]}", pos=(max(0, xmin + 35), max(30, ymin - 10)), scale=0.8,
+                    cvzone.putTextRect(feed, f"{label}", pos=(max(0, xmin + 35), max(30, ymin - 10)), scale=0.8,
                                        thickness=1, offset=3)
             else:
-                cvzone.cornerRect(feed, (xmin, ymin, w, h), colorC=(153, 52, 43), colorR=(95, 69, 235), t=3, l=15)
+                label = model.names[int(box.cls[0])]
+                if label in color_dict:
+                    color = color_dict[label]
+                else:
+                    color = tuple(np.random.randint(0, 255, 3).tolist())
+                cvzone.cornerRect(feed, (xmin, ymin, w, h), colorC=color, colorR=(95, 69, 235), t=3, l=15)
                 conf = round(float(box.conf[0]), 2)
                 cvzone.putTextRect(feed, f"{conf}", pos=(max(0, xmin), max(30, ymin - 10)), scale=0.8, thickness=1,
                                    offset=3)
