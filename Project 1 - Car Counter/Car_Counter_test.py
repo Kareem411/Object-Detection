@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import cv2
 import cvzone
-import numpy as np
+from sort import *
 
 model = YOLO('../Yolo-weights/yolov8l.pt')
 user_input = input("Camera or Video feed? (c/v)\n")
@@ -28,6 +28,9 @@ if mask_answer:
     mask_url = str(input("Mask URL: \n"))
     mask = cv2.imread(mask_url)
 
+# Tracking
+#tracker = Sort(max_age=60, min_hits=3 ,iou_threshold=0.5)
+
 # Define colors for each class label
 color_dict = {
     'bus': (255, 0, 0),        # blue
@@ -41,7 +44,7 @@ while True:
     _, feed = cap.read()
     if mask_answer:
         masked_feed = cv2.bitwise_and(feed, mask)
-        prediction_feed = model(masked_feed, stream=True)
+        prediction_feed = model(masked_feed)#, stream=True)
     else:
         prediction_feed = model(feed, stream=True)
 
@@ -76,6 +79,6 @@ while True:
                 name_int = int(box.cls[0])
                 cvzone.putTextRect(feed, f"{model.names[name_int]}", pos=(max(0, xmin + 35), max(30, ymin - 10)), scale=0.8,
                                    thickness=1, offset=3)
-
+    #tracker.update(detections)
     cv2.imshow("camera", feed)
     cv2.waitKey(1)
