@@ -8,12 +8,6 @@ from ultralytics import YOLO
 
 cap = None  # Global variable to store the camera object
 video_cap = None  # Global variable to store the video object
-count_label = None
-vehicle_passed = False
-
-car_count = 0
-previous_car_count = 0
-y_line = 500
 
 colors_dict = {}
 vehicles_list = {
@@ -69,7 +63,7 @@ video_window_active = False
 
 
 def update_vidfeed():
-    global video_cap, video_window_active, car_count, previous_car_count, y_line
+    global video_cap, video_window_active
     if not video_window_active:
         return  # Return if the video window is not active
 
@@ -153,7 +147,7 @@ def window2to1():
 
 
 def window1to3():
-    global video_window_active, count_label
+    global video_window_active
     video_window_active = True
     window_1.withdraw()
     window_3.deiconify()
