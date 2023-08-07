@@ -24,7 +24,7 @@ This repository contains a Python script for performing object detection using Y
 `python Land_Vehicles_Detector.py`
 
 
-4. Kindly proceed by selecting either a camera or a video feed based on your preference. Then, choose a confidence threshold to optimize the results. Once you've made your selections, please proceed with the execution. Your choices will help ensure a confident and successful outcome.
+4. Kindly proceed by selecting either a camera or a video feed based on your preference. Then, choose a confidence threshold to optimize the results. Once you've made your selections, please proceed with the execution.
 
 ## License
 
