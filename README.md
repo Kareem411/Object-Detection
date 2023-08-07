@@ -21,7 +21,7 @@ This repository contains a Python script for performing object detection using Y
 
 
 3. Run the script:
-`python Car_Counter_test.py`
+`python Land_Vehicles_Detector.py`
 
 
 4. Follow the prompts to choose between a camera or a video feed, select a mask (if desired), and choose whether to check for specific objects.
