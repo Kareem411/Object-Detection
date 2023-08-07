@@ -1,6 +1,6 @@
 # Object Detection
 
-This repository contains a Python script for performing object detection using YOLOv5 and OpenCV. The script allows you to detect objects in either a camera or a video feed, and you can also choose to use a mask to apply the detection only to specific areas.
+Welcome to this repository featuring a Python script for performing object detection using YOLOv5/YOLOv8 and OpenCV. The script allows you to detect objects in real-time through either a camera or a video feed. Enhance the detection accuracy by selecting an appropriate confidence threshold to optimize the results. Enjoy the simplicity and effectiveness of this tool for precise and efficient object detection.
 
 ## Requirements
 
