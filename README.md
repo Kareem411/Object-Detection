@@ -4,10 +4,11 @@ This repository contains a Python script for performing object detection using Y
 
 ## Requirements
 
-- Python 3.6+
+- Python 3.9+
 - [Ultralytics YOLOv5/YOLOv8](https://github.com/ultralytics) (already included in the repository)
 - OpenCV
 - CVZone
+- Pytorch with Cuda supported GPU
 
 ## Usage
 
